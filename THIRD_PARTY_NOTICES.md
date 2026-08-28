@@ -1,12 +1,19 @@
-# Third-Party Notices
+# 제3자 저작물 고지
 
 ## Marinara Engine
 
-This community extension targets Marinara Engine and translates English Agent catalog metadata displayed by the application.
+이 커뮤니티 확장은 Marinara Engine을 대상으로 하며, 애플리케이션에 표시되는 공식 영문 에이전트 카탈로그 정보를 한국어로 번역합니다.
 
-- Upstream project: https://github.com/Pasta-Devs/Marinara-Engine
-- Upstream license: GNU Affero General Public License v3.0 (AGPL-3.0)
+- 원본 프로젝트: https://github.com/Pasta-Devs/Marinara-Engine
+- 원본 라이선스: GNU Affero General Public License v3.0 (`AGPL-3.0`)
 
-Marinara Engine and its upstream contributors are not responsible for this unofficial extension. Product names and upstream English metadata remain attributable to their respective authors.
+이 확장은 Marinara Engine 공식 프로젝트가 아닌 비공식 커뮤니티 확장입니다. Marinara Engine과 원본 프로젝트 기여자는 이 확장의 개발·배포·지원에 책임을 지지 않습니다. 제품명과 공식 영문 카탈로그 정보의 권리는 각각의 작성자에게 있습니다.
 
-The extension performs exact display-time substitutions and does not redistribute Marinara Engine binaries or user data.
+이 확장은 검수된 영어 문구를 화면에 표시할 때만 정확히 일치시켜 한국어로 바꾸며, Marinara Engine 실행 파일이나 사용자 데이터를 재배포하지 않습니다.
+
+## 리비전 이력
+
+| 날짜 | 변경 |
+|------|------|
+| 2026-08-28 | 공개 배포 고지 작성 (펌킨) |
+| 2026-08-28 | 고지문을 한국어로 통일 (펌킨) |

@@ -1,16 +1,18 @@
-# Changelog
+# 변경 이력
 
 ## 0.1.0 — 2026-08-28
 
-- Added reviewed Korean names and descriptions for 37 official Agent packages.
-- Applied translations in both the installed Agents tab and Agent Library catalog.
-- Added Korean mode filters and catalog category labels.
-- Added Korean-locale gating, dynamic React DOM handling, language-change restoration, and cleanup restoration.
-- Added Chromium regression coverage for all 37 packages across both surfaces (74 name/description displays).
-- Declared the required `full_page_access` capability and documented the no-network/no-storage/no-data-write boundary.
+- 공식 에이전트 패키지 37개의 이름과 설명에 검수된 한국어 번역을 추가했습니다.
+- 설치된 에이전트 탭과 에이전트 라이브러리 양쪽에 번역을 적용했습니다.
+- 모드 필터와 카탈로그 분류 문구를 한글화했습니다.
+- 한국어 UI에서만 동작하며, React 화면 갱신 후에도 번역을 다시 적용합니다.
+- 언어를 변경하거나 확장을 비활성화하면 확장이 바꾼 문구를 영어 원문으로 복원합니다.
+- 공식 에이전트 37개를 두 화면에서 검증하여 총 74개 이름·설명 표시의 브라우저 회귀 검사를 통과했습니다.
+- 필요한 권한 `full_page_access`와 네트워크·저장소·사용자 데이터 쓰기를 하지 않는 안전 경계를 문서화했습니다.
 
 ## 리비전 이력
 
 | 날짜 | 변경 |
 |------|------|
 | 2026-08-28 | v0.1.0 공개 배포 후보 (펌킨) |
+| 2026-08-28 | 사용자 문서를 한국어로 통일 (펌킨) |

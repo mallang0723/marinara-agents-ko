@@ -72,6 +72,7 @@ MARINARA_REPO=/path/to/Marinara-Engine node test/browser-test.cjs
 - 확장 코드와 번역 배포물: GNU Affero General Public License v3.0 (`AGPL-3.0`)
 - upstream: <https://github.com/Pasta-Devs/Marinara-Engine>
 - 자세한 내용은 `LICENSE`와 `THIRD_PARTY_NOTICES.md`를 확인하세요.
+- `LICENSE`는 법률 문서의 정확성을 위해 AGPL-3.0 영어 원문을 그대로 제공합니다.
 
 ## 리비전 이력
 
