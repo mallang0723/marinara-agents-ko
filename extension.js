@@ -1,0 +1,242 @@
+(() => {
+  "use strict";
+
+  const EXACT = Object.freeze({
+  "All": "전체",
+  "Conversation": "대화",
+  "Roleplay": "롤플레이",
+  "Game": "게임",
+  "Filter agents by supported chat mode": "지원하는 채팅 모드로 에이전트 필터링",
+  "Installed Agents": "설치된 에이전트",
+  "Uninstalled Agents": "설치되지 않은 에이전트",
+  "Writer Agents": "글쓰기 에이전트",
+  "Tracker Agents": "추적 에이전트",
+  "Misc Agents": "기타 에이전트",
+  "Agent": "에이전트",
+  "Calls": "통화",
+  "Conversation Game": "대화 게임",
+  "Maps": "지도",
+  "Agents": "에이전트",
+  "8-Ball Pool": "8볼 풀",
+  "Play 8-Ball Pool with a Conversation character. Install to use /8ball manually in any Conversation chat. Add under Chat Settings → Agents → Commands only to let characters initiate it.": "Conversation 캐릭터와 8볼 풀을 플레이합니다. 어느 Conversation 채팅에서나 /8ball을 수동으로 사용하려면 설치하세요. 캐릭터가 게임을 시작할 수 있게 하려는 경우에만 채팅 설정 → 에이전트 → 명령어에 추가하세요.",
+  "Background": "배경",
+  "Selects the most fitting existing background image for the current scene from your background library. Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay mode.": "배경 라이브러리에서 현재 장면에 가장 잘 어울리는 기존 배경 이미지를 선택합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요.",
+  "Beholder": "Beholder",
+  "Tracks each roleplay character's clothing by body slot, held items, wounds, missing parts, bare slots, and species, then keeps that physical state available to the next response, and shows it on a paper doll you can open from the roleplay toolbar. Pick the prompt template for your model: one prompt for a SOTA model (GPT-5.5+, Opus 4.8+, Kimi K3+), or five passes for the local Beholder model (GetBeholder/Beholder-GGUF) — free, offline, and private. Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay mode.": "각 롤플레이 캐릭터의 의상을 신체 부위별로 추적하고, 들고 있는 물건, 상처, 결손 부위, 노출된 부위, 종족을 기록해 이 신체 상태를 다음 응답에서 사용할 수 있게 하며, 롤플레이 도구 모음에서 열 수 있는 페이퍼 돌에 표시합니다. 모델에 맞는 프롬프트 템플릿을 선택하세요: SOTA 모델(GPT-5.5+, Opus 4.8+, Kimi K3+)용 단일 프롬프트 또는 로컬 Beholder 모델(GetBeholder/Beholder-GGUF)용 5회 패스(무료, 오프라인, 비공개). Roleplay 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요.",
+  "Adds live audio and video calls with Conversation characters. Add as both a Command and an Agent in Chat Settings → Agents → Commands/Calls for Conversation mode.": "Conversation 캐릭터와 실시간 음성 및 영상 통화를 추가합니다. Conversation 모드에서 채팅 설정 → 에이전트 → 명령어/통화에 명령어와 에이전트로 모두 추가하세요.",
+  "Card Evolution Auditor": "카드 변화 검토기",
+  "Audits durable roleplay changes against saved character cards and proposes precise edits for user approval. Add the Agent in Chat Settings → Agents → Writer Agents for Roleplay mode.": "저장된 캐릭터 카드와 대조하여 롤플레이에서 계속 유지될 변화를 검토하고, 사용자 승인을 받을 정확한 수정안을 제안합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 작가 에이전트에 에이전트를 추가하세요.",
+  "Character Tracker": "캐릭터 추적기",
+  "Tracks which characters are present in the scene, their mood, actions, appearance, outfit, thoughts, and per-character stats (HP, etc.). Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay mode.": "장면에 있는 캐릭터와 각 캐릭터의 기분, 행동, 외형, 복장, 생각, 개별 스탯(HP 등)을 추적합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요.",
+  "Chess": "체스",
+  "Play Chess with a Conversation character. Install to use /chess manually in any Conversation chat. Add under Chat Settings → Agents → Commands only to let characters initiate it.": "Conversation 캐릭터와 체스를 플레이합니다. 어느 Conversation 채팅에서나 /chess를 수동으로 사용하려면 설치하세요. 캐릭터가 게임을 시작할 수 있게 하려는 경우에만 채팅 설정 → 에이전트 → 명령어에 추가하세요.",
+  "Combat": "전투",
+  "Manages combat encounters, initiative, HP tracking, and turn-based actions. Add as an Agent in Chat Settings → Agents → Misc Agents for Roleplay mode.": "전투 인카운터, 이니셔티브, HP 추적, 턴제 행동을 관리합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 기타 에이전트에 에이전트로 추가하세요.",
+  "Continuity Checker": "연속성 검사기",
+  "Post-processes the latest assistant message to fix concrete spatial, timeline, and physical logic errors without changing the story. Add the Agent in Chat Settings → Agents → Writer Agents for Roleplay mode.": "이야기를 바꾸지 않고 최신 어시스턴트 메시지를 후처리하여 구체적인 공간, 시간선, 물리적 논리 오류를 수정합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 작가 에이전트에 에이전트를 추가하세요.",
+  "Custom Tracker": "커스텀 트래커",
+  "Tracks user-defined fields (currencies, counters, flags, or any custom data). Add any fields you want the model to keep track of during the roleplay. Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay mode.": "사용자가 정의한 필드(화폐, 카운터, 플래그 또는 임의의 사용자 지정 데이터)를 추적합니다. 롤플레이 중 모델이 계속 추적할 필드를 원하는 만큼 추가하세요. Roleplay 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요.",
+  "CYOA Choices": "CYOA 선택지",
+  "Generates interactive Choose Your Own Adventure choices after each assistant message. Click a choice to send it as your response. Available in Roleplay chats. Add the Agent in Chat Settings → Agents → Misc Agents for Roleplay mode.": "각 어시스턴트 메시지 뒤에 대화형 Choose Your Own Adventure 선택지를 생성합니다. 선택지를 클릭하면 사용자의 응답으로 전송됩니다. Roleplay 채팅에서 사용할 수 있습니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 기타 에이전트에 에이전트를 추가하세요.",
+  "Echo Chamber": "에코 챔버",
+  "Simulates a live streaming-style chat reacting to your roleplay in real time. Add the Agent in Chat Settings → Agents → Misc Agents for Roleplay mode.": "롤플레이에 실시간으로 반응하는 라이브 스트리밍풍 채팅을 시뮬레이션합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 기타 에이전트에 에이전트를 추가하세요.",
+  "Expression Engine": "표현 엔진",
+  "Detects character emotions and selects VN sprites/expressions. Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay mode.": "캐릭터의 감정을 감지하고 VN 스프라이트/표정을 선택합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요.",
+  "Gacha Forge": "Gacha Forge",
+  "A complete gacha game mode. Describe a world and Gacha Forge builds the rest: banners to pull on, a cast the model writes and paints for you, story chapters told by a visual-novel narrator, and the battles, gear and events that grow around them. Install it, restart Marinara Engine when prompted, then open Home → Gacha Forge.": "완전한 가챠 게임 모드입니다. 세계를 설명하면 Gacha Forge가 나머지를 만듭니다: 뽑기를 진행할 배너, 모델이 글을 쓰고 그림을 그려 주는 등장인물, 비주얼 노벨 내레이터가 들려주는 스토리 챕터, 그리고 그 주위를 확장하는 전투, 장비, 이벤트. 설치하고 안내가 나오면 Marinara Engine을 다시 시작한 다음 홈 → Gacha Forge를 여세요.",
+  "Haptic Feedback": "햅틱 피드백",
+  "Analyzes narrative content and controls every supported action and pattern on connected intimate toys in real time. Requires Intiface Central running locally; connect your toy there first. Add as both a Command and an Agent in Chat Settings → Agents → Commands/Misc Agents for Conversation, Roleplay, and Game modes.": "서사 콘텐츠를 분석하고 연결된 성인용 기기에서 지원되는 모든 동작과 패턴을 실시간으로 제어합니다. 로컬에서 실행 중인 Intiface Central이 필요합니다. 먼저 그곳에서 기기를 연결하세요. Conversation, Roleplay, Game 모드에서 채팅 설정 → 에이전트 → 명령어/기타 에이전트에 명령어와 에이전트로 모두 추가하세요.",
+  "Illustrator": "Illustrator",
+  "Creates images and videos, with optional automatic scene backgrounds for Roleplay location changes. Add as both a Command and an Agent in Chat Settings → Agents → Commands/Misc Agents/Illustrator for Conversation, Roleplay, and Game modes.": "이미지와 동영상을 생성하며, Roleplay에서 장소가 바뀔 때 장면 배경을 자동 생성하는 선택 기능도 제공합니다. Conversation, Roleplay, Game 모드에서 채팅 설정 → 에이전트 → 명령어/기타 에이전트/Illustrator에 명령어와 에이전트로 모두 추가하세요.",
+  "Immersive HTML": "몰입형 HTML",
+  "Post-processes the latest Roleplay response with diegetic HTML/CSS/JS visual artifacts without changing the story meaning. Add the Agent in Chat Settings → Agents → Misc Agents for Roleplay mode.": "이야기의 의미를 바꾸지 않고 최신 Roleplay 응답을 세계관에 자연스럽게 녹아든 HTML/CSS/JS 시각 아티팩트로 후처리합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 기타 에이전트에 에이전트를 추가하세요.",
+  "Inventory Tracker": "인벤토리 트래커",
+  "Tracks currencies, equipped gear, and carried items as separate structured lists with compact quantities. Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay mode.": "화폐, 장착 장비, 소지품을 간결한 수량과 함께 각각 별도의 구조화된 목록으로 추적합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요.",
+  "Knowledge Retrieval": "지식 검색",
+  "Scans specified lorebooks for information relevant to the current conversation, summarizes the key data, and injects it into the prompt — a lightweight RAG pipeline without vector databases. Add the Agent in Chat Settings → Agents → Writer Agents for Roleplay mode.": "지정한 로어북에서 현재 대화와 관련된 정보를 검색하고, 핵심 데이터를 요약해 프롬프트에 주입합니다. 벡터 데이터베이스 없이 사용하는 가벼운 RAG 파이프라인입니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 작가 에이전트에 에이전트를 추가하세요.",
+  "Knowledge Router": "지식 라우터",
+  "Lower-cost alternative to Knowledge Retrieval. Reads a short catalog of lorebook entries (descriptions or content snippets), picks which ones are relevant to the current scene, and injects them verbatim — no per-entry summarization passes. Best for large lorebooks where you've written entry descriptions. Add the Agent in Chat Settings → Agents → Writer Agents for Roleplay mode.": "지식 검색보다 비용이 적게 드는 대안입니다. 로어북 항목의 짧은 카탈로그(설명 또는 콘텐츠 스니펫)를 읽고 현재 장면과 관련된 항목을 골라 요약 없이 그대로 주입합니다. 항목 설명을 작성해 둔 대형 로어북에 가장 적합합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 작가 에이전트에 에이전트를 추가하세요.",
+  "Long-Term Memory": "장기 기억",
+  "Extracts durable memories from chat summaries, character records, and lorebooks, then recalls relevant context from a package-owned vault. Enable it per chat from Chat Settings → Agents → Long-Term Memory. In Roleplay and Game, you can also add it from Chat Settings → Agents → Misc Agents.": "채팅 요약, 캐릭터 기록, 로어북에서 오래 유지할 기억을 추출한 다음 패키지 전용 보관소에서 관련 컨텍스트를 불러옵니다. 채팅 설정 → 에이전트 → 장기 기억에서 채팅별로 활성화하세요. Roleplay와 Game에서는 채팅 설정 → 에이전트 → 기타 에이전트에서도 추가할 수 있습니다.",
+  "Lorebook Keeper": "로어북 키퍼",
+  "Creates and updates durable chat lorebook entries from important story facts, characters, places, and world changes. Add the Agent in Chat Settings → Agents → Misc Agents/Lorebook Keeper for Roleplay and Game modes.": "중요한 이야기 사실, 캐릭터, 장소, 세계의 변화를 바탕으로 오래 유지할 채팅 로어북 항목을 만들고 업데이트합니다. Roleplay 및 Game 모드에서 채팅 설정 → 에이전트 → 기타 에이전트/로어북 키퍼에 에이전트를 추가하세요.",
+  "Memory Nag": "Memory Nag",
+  "Keeps a short per-chat vault of roleplay memories and recalls only the unresolved details that matter to the current turn. Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay mode. Once active, configure it in its standalone Memory Nag section.": "짧은 채팅별 보관소에 롤플레이 기억을 유지하고, 현재 턴에 중요한 미해결 세부 정보만 불러옵니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요. 활성화한 뒤 독립된 Memory Nag 섹션에서 설정하세요.",
+  "Music DJ": "Music DJ",
+  "Analyzes the narrative mood and plays matching music through Spotify, YouTube, or local Game Assets music. Enable the music player in Settings → General. Add both as a Command and an Agent in Chat Settings → Agents → Commands/Misc Agents/Music DJ for Conversation, Roleplay, and Game modes.": "서사의 분위기를 분석하고 Spotify, YouTube 또는 로컬 게임 에셋 음악을 통해 어울리는 음악을 재생합니다. 설정 → 일반에서 음악 플레이어를 활성화하세요. Conversation, Roleplay, Game 모드에서 채팅 설정 → 에이전트 → 명령어/기타 에이전트/Music DJ에 명령어와 에이전트로 모두 추가하세요.",
+  "Narrative Director": "네러티브 디렉터",
+  "Creates one-shot story directions when you choose to push the next response forward. Add the Agent in Chat Settings → Agents → Writer Agents for Roleplay mode.": "다음 응답의 전개를 밀어붙이기로 선택했을 때 일회성 이야기 방향을 생성합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 작가 에이전트에 에이전트를 추가하세요.",
+  "Noodle": "Noodle",
+  "Explore the Noodle public timeline as an optional local social world. Install it, restart Marinara Engine when prompted, then open Home → Noodle.": "Noodle 공개 타임라인을 선택형 로컬 소셜 세계로 만나 보세요. 패키지를 설치하고 안내에 따라 Marinara Engine을 다시 시작한 다음 홈 → Noodle을 여세요.",
+  "Persona Stats": "페르소나 스탯",
+  "Tracks the player persona's status bars — Satiety, Energy, Hygiene, and other custom stats — with realistic changes based on narrative events. Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay mode.": "플레이어 페르소나의 상태 막대(포만감, 에너지, 위생 및 기타 사용자 지정 스탯)를 서사 사건에 따른 현실적인 변화와 함께 추적합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요.",
+  "Poker": "포커",
+  "Play Texas Hold’em Poker with Conversation characters. Install to use /poker manually in any Conversation chat. Add under Chat Settings → Agents → Commands only to let characters initiate it.": "Conversation 캐릭터와 Texas Hold’em Poker를 플레이합니다. 어느 Conversation 채팅에서나 /poker를 수동으로 사용하려면 설치하세요. 캐릭터가 게임을 시작할 수 있게 하려는 경우에만 채팅 설정 → 에이전트 → 명령어에 추가하세요.",
+  "Prose Guardian": "프로즈 가디언",
+  "Post-processes the latest assistant message to remove banned words, repetition, and unwanted prose habits without changing the meaning. Add the Agent in Chat Settings → Agents → Writer Agents for Roleplay mode.": "의미를 바꾸지 않고 최신 어시스턴트 메시지를 후처리하여 금지어, 반복, 원하지 않는 문체 습관을 제거합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 작가 에이전트에 에이전트를 추가하세요.",
+  "Quest Tracker": "퀘스트 트래커",
+  "Manages quest objectives, completion states, and rewards. Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay mode.": "퀘스트 목표, 완료 상태, 보상을 관리합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요.",
+  "Rock-Paper-Scissors": "가위바위보",
+  "Play Rock-Paper-Scissors with a Conversation character. Install to use /rps manually in any Conversation chat. Add under Chat Settings → Agents → Commands only to let characters initiate it.": "Conversation 캐릭터와 가위바위보를 플레이합니다. 어느 Conversation 채팅에서나 /rps를 수동으로 사용하려면 설치하세요. 캐릭터가 게임을 시작할 수 있게 하려는 경우에만 채팅 설정 → 에이전트 → 명령어에 추가하세요.",
+  "Slurp": "Slurp",
+  "The standalone successor to NoodleR: create a local Creator profile from an Engine character or persona, publish public or locked posts, and simulate subscriptions and audience activity. Install it, restart Marinara Engine when prompted, then open Home → Slurp.": "Engine 캐릭터나 Engine 페르소나로 로컬 크리에이터 프로필을 만들고, 공개 또는 잠긴 Slurp 게시물을 게시하며, 구독 및 청중 활동을 시뮬레이션합니다. 패키지를 설치하고 안내에 따라 Marinara Engine을 다시 시작한 다음 홈 → Slurp를 여세요.",
+  "Storyboard": "스토리보드",
+  "Plans still or animated Game and Roleplay storyboards with separate planning prompts and shared provider formatters. Add the Agent in Chat Settings → Agents → Misc Agents/Storyboard for Roleplay and Game modes.": "별도의 기획 프롬프트와 공용 제공자 포맷터를 사용하여 정지 또는 애니메이션 Game 및 Roleplay 스토리보드를 계획합니다. Roleplay 및 Game 모드에서 채팅 설정 → 에이전트 → 기타 에이전트/스토리보드에 에이전트를 추가하세요.",
+  "Tic-Tac-Toe": "틱택토",
+  "Play Tic-Tac-Toe with a Conversation character. Install to use /tictactoe manually in any Conversation chat. Add under Chat Settings → Agents → Commands only to let characters initiate it.": "Conversation 캐릭터와 틱택토를 플레이합니다. 어느 Conversation 채팅에서나 /tictactoe를 수동으로 사용하려면 설치하세요. 캐릭터가 게임을 시작할 수 있게 하려는 경우에만 채팅 설정 → 에이전트 → 명령어에 추가하세요.",
+  "UNO": "UNO",
+  "Play UNO with Conversation characters. Install to use /uno manually in any Conversation chat. Add under Chat Settings → Agents → Commands only to let characters initiate it.": "Conversation 캐릭터와 UNO를 플레이합니다. 어느 Conversation 채팅에서나 /uno를 수동으로 사용하려면 설치하세요. 캐릭터가 게임을 시작할 수 있게 하려는 경우에만 채팅 설정 → 에이전트 → 명령어에 추가하세요.",
+  "World Maps": "World Maps",
+  "Adds persistent hierarchical locations, durable shared worlds, reusable artwork, customizable Direct Link lines, and movement to Roleplay and Game. Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay and Game modes.": "Roleplay와 Game에 지속되는 계층형 위치, 오래 유지되는 공유 세계, 재사용 가능한 아트워크, 사용자 지정 가능한 Direct Link 선, 이동 기능을 추가합니다. Roleplay 및 Game 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요.",
+  "World State": "월드 트래커",
+  "Tracks date, time, weather, location, temperature, and custom world details automatically. Add the Agent in Chat Settings → Agents → Tracker Agents for Roleplay mode.": "날짜, 시간, 날씨, 장소, 온도, 사용자 지정 월드 세부 정보를 자동으로 추적합니다. Roleplay 모드에서 채팅 설정 → 에이전트 → 트래커 에이전트에 에이전트를 추가하세요."
+});
+  const ROOT_SELECTOR = '[data-component="AgentCatalogView"], [data-component="FeatureAgentDetailHost"]';
+  const ledger = new Map();
+  const attributeLedger = new Map();
+  let bodyObserver = null;
+  let languageObserver = null;
+  let scheduled = false;
+  let applying = false;
+  let stopped = false;
+
+  function isKorean() {
+    const locale = String(document.documentElement.lang || "").toLowerCase();
+    return locale === "ko" || locale.startsWith("ko-");
+  }
+
+  function replaceText(node, translated) {
+    const current = node.nodeValue;
+    const previous = ledger.get(node);
+    if (!previous || current !== previous.translated) {
+      ledger.set(node, { original: current, translated });
+    }
+    node.nodeValue = translated;
+  }
+
+  function translateTextNode(node) {
+    if (!node.parentElement) return;
+    if (node.parentElement.closest('script, style, input, textarea, [contenteditable="true"]')) return;
+    const current = node.nodeValue;
+    const leading = current.match(/^\s*/u)?.[0] ?? "";
+    const trailing = current.match(/\s*$/u)?.[0] ?? "";
+    const core = current.slice(leading.length, current.length - trailing.length);
+    const translated = EXACT[core];
+    if (!translated) return;
+    replaceText(node, `${leading}${translated}${trailing}`);
+  }
+
+  function translateAttributes(element) {
+    for (const attribute of ["aria-label", "title", "placeholder"]) {
+      const current = element.getAttribute(attribute);
+      const translated = current ? EXACT[current] : null;
+      if (!translated) continue;
+      let records = attributeLedger.get(element);
+      if (!records) {
+        records = new Map();
+        attributeLedger.set(element, records);
+      }
+      const previous = records.get(attribute);
+      if (!previous || current !== previous.translated) {
+        records.set(attribute, { original: current, translated });
+      }
+      element.setAttribute(attribute, translated);
+    }
+  }
+
+  function translateRoot(rootNode) {
+    if (rootNode.nodeType === Node.ELEMENT_NODE) translateAttributes(rootNode);
+    rootNode.querySelectorAll?.("[aria-label], [title], [placeholder]").forEach(translateAttributes);
+    const walker = document.createTreeWalker(rootNode, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      translateTextNode(node);
+    }
+  }
+
+  function translateAgentsPanelHeader() {
+    for (const panel of document.querySelectorAll('[data-component="RightPanel"]')) {
+      const activeAgents = panel.querySelector('[data-panel-key="agents"]:not([aria-hidden="true"])');
+      if (!activeAgents) continue;
+      translateAttributes(panel);
+      translateRoot(activeAgents);
+      const heading = panel.querySelector("h2");
+      if (heading) translateRoot(heading);
+    }
+  }
+
+  function revertAll() {
+    applying = true;
+    try {
+      for (const [node, entry] of ledger) {
+        if (node.isConnected && node.nodeValue === entry.translated) {
+          node.nodeValue = entry.original;
+        }
+      }
+      ledger.clear();
+      for (const [element, records] of attributeLedger) {
+        if (!element.isConnected) continue;
+        for (const [attribute, entry] of records) {
+          if (element.getAttribute(attribute) === entry.translated) {
+            element.setAttribute(attribute, entry.original);
+          }
+        }
+      }
+      attributeLedger.clear();
+    } finally {
+      applying = false;
+    }
+  }
+
+  function scan() {
+    if (stopped) return;
+    if (!isKorean()) {
+      revertAll();
+      return;
+    }
+    applying = true;
+    try {
+      document.querySelectorAll(ROOT_SELECTOR).forEach(translateRoot);
+      translateAgentsPanelHeader();
+    } finally {
+      applying = false;
+    }
+  }
+
+  function schedule() {
+    if (stopped || applying || scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      scan();
+    });
+  }
+
+  function start() {
+    if (stopped || bodyObserver || !document.body) return;
+    bodyObserver = new MutationObserver(schedule);
+    bodyObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ["aria-label", "title", "placeholder"],
+    });
+    languageObserver = new MutationObserver(schedule);
+    languageObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+    scan();
+  }
+
+  function cleanup() {
+    if (stopped) return;
+    stopped = true;
+    bodyObserver?.disconnect();
+    languageObserver?.disconnect();
+    bodyObserver = null;
+    languageObserver = null;
+    revertAll();
+  }
+
+  marinara.onCleanup(cleanup);
+  if (document.body) start();
+  else document.addEventListener("DOMContentLoaded", start, { once: true });
+})();

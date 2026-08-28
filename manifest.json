@@ -1,0 +1,12 @@
+{
+  "kind": "marinara.personal-extension",
+  "version": 1,
+  "config": {
+    "name": "Korean Agents Library (Temporary)",
+    "version": "0.1.0",
+    "description": "Temporarily translates official Agent names and descriptions into Korean in the Agents tab and Agent Library.",
+    "runtime": "client",
+    "capabilities": ["full_page_access"],
+    "jsPath": "extension.js"
+  }
+}
